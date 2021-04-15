@@ -29,26 +29,8 @@ def ispath(path):
     else:
         return path
 
-
-parser = argparse.ArgumentParser()
-parser.add_argument('--image',
-                    required=True,
-                    dest='image_path',
-                    type=ispath,
-                    help='Path to the image')
-parser.add_argument('--output-dir',
-                    required=True,
-                    dest='output_dir',
-                    type=ispath,
-                    help='Directory to save the image with the detections', )
-parser.add_argument('-c', '--crop-size', dest='crop_size', type=int,
-                    help='Size of (square) crops to divide the image '
-                         'before the detection')
-args = parser.parse_args()
-
-image_path = args.image_path
-output_dir = args.output_dir
-crop_size = args.crop_size
+image_path = 'test.jpg'
+output_dir = '.'
 
 
 def main():
