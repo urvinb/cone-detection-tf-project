@@ -41,14 +41,11 @@ parser.add_argument('--output-dir',
                     dest='output_dir',
                     type=ispath,
                     help='Directory to save the image with the detections', )
-parser.add_argument('-c', '--crop-size', dest='crop_size', type=int,
-                    help='Size of (square) crops to divide the image '
-                         'before the detection')
+
 args = parser.parse_args()
 
 image_path = args.image_path
 output_dir = args.output_dir
-crop_size = args.crop_size
 
 
 def main():
@@ -59,30 +56,11 @@ def main():
 
         tic = time.time()
         boxes = []
-
-        if crop_size:
-            crop_height = crop_width = crop_size
-            crop_step_vertical = crop_step_horizontal = crop_size - 20
-            crops, crops_coordinates = ops.extract_crops(
-                img, crop_height, crop_width,
-                crop_step_vertical, crop_step_horizontal)
-
-            detection_dict = tf_utils.run_inference_for_batch(crops, sess)
-
-            for box_absolute, boxes_relative in zip(
-                    crops_coordinates, detection_dict['detection_boxes']):
-                boxes.extend(ops.get_absolute_boxes(
-                    box_absolute,
-                    boxes_relative[np.any(boxes_relative, axis=1)]))
-
-            boxes = np.vstack(boxes)
-            boxes = ops.non_max_suppression_fast(
-                boxes, NON_MAX_SUPPRESSION_THRESHOLD)
-        else:
-            detection_dict = tf_utils.run_inference_for_batch(
-                np.expand_dims(img, axis=0), sess)
-            boxes = detection_dict['detection_boxes']
-            boxes = boxes[np.any(boxes, axis=2)]
+        
+        detection_dict = tf_utils.run_inference_for_batch(
+            np.expand_dims(img, axis=0), sess)
+        boxes = detection_dict['detection_boxes']
+        boxes = boxes[np.any(boxes, axis=2)]
 
         boxes_scores = detection_dict['detection_scores']
         boxes_scores = boxes_scores[np.nonzero(boxes_scores)]
