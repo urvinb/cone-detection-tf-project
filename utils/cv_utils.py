@@ -9,8 +9,3 @@ def add_rectangle_with_text(image, ymin, xmin, ymax, xmax, color, text):
                 cv2.LINE_AA)
 
 
-def resize_width_keeping_aspect_ratio(image, desired_width, interpolation=cv2.INTER_AREA):
-    (h, w) = image.shape[:2]
-    r = desired_width / w
-    dim = (desired_width, int(h * r))
-    return cv2.resize(image, dim, interpolation=interpolation)

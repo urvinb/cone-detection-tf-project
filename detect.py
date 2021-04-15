@@ -46,6 +46,8 @@ args = parser.parse_args()
 
 image_path = args.image_path
 output_dir = args.output_dir
+image_path = 'test.jpg'
+output_dir = '.'
 
 
 def main():
@@ -56,7 +58,7 @@ def main():
 
         tic = time.time()
         boxes = []
-        
+
         detection_dict = tf_utils.run_inference_for_batch(
             np.expand_dims(img, axis=0), sess)
         boxes = detection_dict['detection_boxes']
