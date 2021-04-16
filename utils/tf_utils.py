@@ -7,7 +7,7 @@ tf.disable_v2_behavior()
 def load_model(path_to_frozen_graph):
     """
     Loads a TensorFlow model from a .pb file containing a frozen graph.
-    Args:
+    Arguments:
         path_to_frozen_graph (str): absolute or relative path to the .pb file.
     Returns:
         tf.Graph: a TensorFlow frozen graph.
@@ -25,7 +25,7 @@ def load_model(path_to_frozen_graph):
 def run_inference_for_batch(batch, session):
     """
     Forward propagates the batch of images in the given graph.
-    Args:
+    Arguments:
         batch (ndarray): (n_images, img_height, img_width, img_channels).
         session (tf.Session): TensorFlow session.
     Returns:

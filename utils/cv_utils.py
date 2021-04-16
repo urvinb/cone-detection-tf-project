@@ -7,7 +7,7 @@ import numpy as np
 def add_rectangle_with_text(image, ymin, xmin, ymax, xmax, color, text):
     """
     Draw a bounding box with text above the box
-    Args:
+    Arguments:
         image : image on which box needs to be drawn
         ymin, xmin, ymax, xmax: co-ordinates of the box
         color: Contanins the colour of the boundiing box to be drawn
