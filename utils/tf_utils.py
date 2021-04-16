@@ -5,6 +5,13 @@ tf.disable_v2_behavior()
 
 
 def load_model(path_to_frozen_graph):
+    """
+    Loads a TensorFlow model from a .pb file containing a frozen graph.
+    Args:
+        path_to_frozen_graph (str): absolute or relative path to the .pb file.
+    Returns:
+        tf.Graph: a TensorFlow frozen graph.
+    """
     detection_graph = tf.Graph()
     with detection_graph.as_default():
         od_graph_def = tf.GraphDef()
@@ -16,6 +23,20 @@ def load_model(path_to_frozen_graph):
 
 
 def run_inference_for_batch(batch, session):
+    """
+    Forward propagates the batch of images in the given graph.
+    Args:
+        batch (ndarray): (n_images, img_height, img_width, img_channels).
+        session (tf.Session): TensorFlow session.
+    Returns:
+        a dictionary with the following keys:
+        num_detections  --  number of detections for each image.
+            An ndarray of shape (n_images).
+        detection_boxes --  bounding boxes (ymin, ymax, xmin, xmax) for each image.
+            An ndarray of shape (n_images, max_detections, 4).
+        detection_scores -- scores for each one of the previous detections.
+            An ndarray of shape (n_images, max_detections)
+    """
     ops = tf.get_default_graph().get_operations()
     all_tensor_names = {output.name for op in ops for output in op.outputs}
     tensor_dict = {}
