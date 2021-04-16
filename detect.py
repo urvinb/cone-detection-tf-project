@@ -29,23 +29,6 @@ def ispath(path):
     else:
         return path
 
-
-parser = argparse.ArgumentParser()
-parser.add_argument('--image',
-                    required=True,
-                    dest='image_path',
-                    type=ispath,
-                    help='Path to the image')
-parser.add_argument('--output-dir',
-                    required=True,
-                    dest='output_dir',
-                    type=ispath,
-                    help='Directory to save the image with the detections', )
-
-args = parser.parse_args()
-
-image_path = args.image_path
-output_dir = args.output_dir
 image_path = 'test.jpg'
 output_dir = '.'
 
