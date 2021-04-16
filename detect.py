@@ -22,20 +22,13 @@ FROZEN_GRAPH_PATH = 'models/ssd_mobilenet_v1/frozen_inference_graph.pb'
 SCORE_THRESHOLD = 0.5
 NON_MAX_SUPPRESSION_THRESHOLD = 0.5
 
-
-def ispath(path):
-    if not os.path.exists(path):
-        raise argparse.ArgumentTypeError('No such file or directory: ' + path)
-    else:
-        return path
-
 image_path = 'test.jpg'
 output_dir = '.'
 
 
 def main():
     detection_graph = tf_utils.load_model(FROZEN_GRAPH_PATH)
-    img = cv2.imread(args.image_path)
+    img = cv2.imread(image_path)
 
     with tf.Session(graph=detection_graph) as sess:
 
